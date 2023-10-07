@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Map;
+import java.util.HashMap;
 
-public record LogSegment(String location, Map<String, Integer> offsetMap) {}
+public record LogSegment(String location, HashMap<String, Long> offsetMap, Long size) {}
 
