@@ -1,9 +1,7 @@
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 class DatabaseFileHandler {
     public static Long appendKeyValueToFile(String fileName, String key, String value) throws IOException, URISyntaxException {
@@ -13,6 +11,18 @@ class DatabaseFileHandler {
         String string = String.format("%s%s%s%s", paddedLengthOfStringInBinary(key), key, paddedLengthOfStringInBinary(value), value);
         writer.append(string).close();
         return startIndex;
+    }
+
+    public static void createFile(String databaseName, String logSegmentName) throws IOException {
+        var directoryFile = new File(FileWriterUtil.getFilePath(databaseName));
+        if (!directoryFile.exists()) {
+            directoryFile.mkdir();
+        }
+        var f = new File(FileWriterUtil.getFilePath(databaseName + "/" + logSegmentName + ".txt"));
+        var fileCreated = f.createNewFile();
+        if (!fileCreated) {
+            throw new RuntimeException("File already exists");
+        }
     }
 
     private static Long getExistingFileSize(String fullPath) {
