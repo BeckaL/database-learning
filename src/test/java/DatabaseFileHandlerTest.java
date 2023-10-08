@@ -24,8 +24,7 @@ public class DatabaseFileHandlerTest {
     @AfterEach
     void tearDown() throws IOException {
         TestUtils.truncateFile(filePath);
-        TestUtils.deleteFile(FileWriterUtil.getFilePath(otherFile));
-        TestUtils.deleteFile(FileWriterUtil.getFilePath("database-one"));
+        TestUtils.deleteDirectoryRecursive(FileWriterUtil.getFilePath("database-one"));
         TestUtils.deleteFile(FileWriterUtil.getFilePath("existing-database/segment-1.txt"));
     }
 
